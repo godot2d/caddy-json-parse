@@ -1,4 +1,4 @@
-module github.com/abiosoft/caddy-json-parse
+module github.com/godot2d/caddy-json-parse
 
 go 1.21
 
