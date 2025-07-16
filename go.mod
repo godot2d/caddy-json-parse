@@ -109,4 +109,4 @@ require (
 	howett.net/plist v1.0.0 // indirect
 )
 
-replace github.com/abiosoft/caddy-json-parse => github.com/godot2d/caddy-json-parse latest
+replace github.com/abiosoft/caddy-json-parse => github.com/godot2d/caddy-json-parse v0.0.0
