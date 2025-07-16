@@ -108,3 +108,5 @@ require (
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	howett.net/plist v1.0.0 // indirect
 )
+
+replace github.com/abiosoft/caddy-json-parse => github.com/godot2d/caddy-json-parse latest

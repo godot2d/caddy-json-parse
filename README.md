@@ -1,4 +1,4 @@
-[![Go](https://github.com/abiosoft/caddy-json-parse/workflows/Go/badge.svg)](https://github.com/abiosoft/caddy-json-parse/actions)
+[![Go](https://github.com/godot2d/caddy-json-parse/workflows/Go/badge.svg)](https://github.com/godot2d/caddy-json-parse/actions)
 
 # caddy-json-parse
 Caddy v2 module for parsing json request body.
@@ -7,7 +7,7 @@ Caddy v2 module for parsing json request body.
 
 ```
 xcaddy build v2.0.0 \
-    --with github.com/abiosoft/caddy-json-parse
+    --with github.com/godot2d/caddy-json-parse
 ```
 
 
