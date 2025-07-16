@@ -1,0 +1,24 @@
+{
+  "apps": {
+    "http": {
+      "servers": {
+        "example": {
+          "listen": [":8080"],
+          "routes": [
+            {
+              "handle": [
+                {
+                  "handler": "json_parse"
+                },
+                {
+                  "handler": "static_response",
+                  "body": "ServerName from attach: {json.attach.ServerName}\nGame: {json.game}\nOrderId: {json.orderId}\nUID: {json.uid}\nAmount: {json.amount}\nTradeState: {json.tradeState}\nPlatform: {json.platform}\nSKU: {json.sku}"
+                }
+              ]
+            }
+          ]
+        }
+      }
+    }
+  }
+}

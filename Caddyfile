@@ -1,0 +1,4 @@
+:8080 {
+	json_parse
+	respond "ServerName from attach: {json.attach.ServerName}\nGame: {json.game}\nOrderId: {json.orderId}\nUID: {json.uid}\nAmount: {json.amount}\nTradeState: {json.tradeState}\nPlatform: {json.platform}\nSKU: {json.sku}"
+}

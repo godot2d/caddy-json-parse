@@ -24,10 +24,35 @@ json_parse [<strict>]
 
 And reference variables via `{json.*}` placeholders. Where `*` can get as deep as possible. e.g. `{json.items.0.label}`
 
+#### Special Feature: ServerName Extraction from Attach Field
 
-#### Example
+This plugin includes special handling for extracting `ServerName` from nested JSON strings in the `attach` field. When your JSON request body contains an `attach` field with a JSON string that includes a `ServerName` property, you can access it directly using:
 
-Run a [command](https://github.com/abiosoft/caddy-exec) only if the github webhook is a push on master branch.
+```
+{json.attach.ServerName}
+```
+
+For example, with this request body:
+```json
+{
+  "game": "com.arrow.defense3d",
+  "orderId": "order-id",
+  "uid": "test",
+  "amount": "100",
+  "tradeState": "SUCCESS",
+  "timestamp": 123456789,
+  "platform": "ios",
+  "sku": "whatever",
+  "attach": "{ \"roleId\": 100016, \"gameServerId\": 1, \"shopId\": 1, \"merchandiseId\": 1001 , \"ServerName\" : \"dev\"}"
+}
+```
+
+You can access `"dev"` using `{json.attach.ServerName}`.
+
+
+#### Examples
+
+**Example 1:** Run a [command](https://github.com/abiosoft/caddy-exec) only if the github webhook is a push on master branch.
 ```
 @webhook {
     expression {json.ref}.endsWith('/master')
@@ -35,6 +60,14 @@ Run a [command](https://github.com/abiosoft/caddy-exec) only if the github webho
 route {
     json_parse # enable json parser
     exec @webhook git pull origin master
+}
+```
+
+**Example 2:** Extract ServerName from attach field and respond with it.
+```
+:8080 {
+    json_parse
+    respond "ServerName: {json.attach.ServerName}, Game: {json.game}, OrderId: {json.orderId}"
 }
 ```
 

@@ -103,12 +103,33 @@ func newReplacerFunc(r *http.Request) (caddy.ReplacerFunc, error) {
 	// prevent repetitive parsing. cache values
 	values := map[string]interface{}{}
 
+	// Extract ServerName from attach field if it exists
+	var serverName interface{}
+	if attachVal := fetchValue(v, "attach"); attachVal != nil {
+		if attachStr, ok := attachVal.(string); ok {
+			var attachData map[string]interface{}
+			if err := json.Unmarshal([]byte(attachStr), &attachData); err == nil {
+				if sn, exists := attachData["ServerName"]; exists {
+					serverName = sn
+				}
+			}
+		}
+	}
+
 	return func(key string) (interface{}, bool) {
 		prefix := "json."
 		if !strings.HasPrefix(key, prefix) {
 			return nil, false
 		}
 		key = strings.TrimPrefix(key, prefix)
+
+		// Special handling for ServerName from attach field
+		if key == "attach.ServerName" {
+			if serverName != nil {
+				return serverName, true
+			}
+			return nil, true
+		}
 
 		// use cache if previously fetched
 		if val, ok := values[key]; ok {
